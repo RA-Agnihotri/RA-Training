@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 const upload = multer({ dest: 'uploads/' });
-
+const apikey ='sk-proj-ql5ozijCBI68ftW14YLaT3BlbkFJqRCsYkXNn9REjm8UUnJh';
 app.use(express.static('public'));
 
 app.post('/api/process', upload.single('file'), async (req, res) => {
@@ -25,7 +25,7 @@ app.post('/api/process', upload.single('file'), async (req, res) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer sk-proj-ql5ozijCBI68ftW14YLaT3BlbkFJqRCsYkXNn9REjm8UUnJh`
+                'Authorization': `Bearer ${apikey}`
             },
             body: JSON.stringify({
                 prompt: command + '\n\n' + fileContent,
