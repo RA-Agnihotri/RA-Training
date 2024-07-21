@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatGPT Web Interface</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>ChatGPT Integration</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>ChatGPT Interface</h1>
-        <textarea id="command-input" placeholder="Enter your command here..."></textarea>
-        <input type="file" id="file-input">
-        <button id="submit-btn">Submit</button>
-        <pre id="output"></pre>
-        <button id="download-btn" style="display:none;">Download Output</button>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-lg p-6 bg-white rounded shadow-lg">
+        <h1 class="text-2xl font-bold mb-4">ChatGPT Integration</h1>
+        <form id="promptForm" class="mb-4">
+            <label for="prompt" class="block text-gray-700">Enter your prompt:</label>
+            <textarea id="prompt" class="w-full p-2 border border-gray-300 rounded mt-2 mb-4" rows="4"></textarea>
+            <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
+        </form>
+        <div id="output" class="p-4 bg-gray-200 rounded"></div>
+        <button id="downloadButton" class="w-full bg-green-500 text-white p-2 rounded mt-4">Download Output</button>
     </div>
-    <script src="scripts.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
