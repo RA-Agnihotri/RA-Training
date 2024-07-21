@@ -1,30 +1,35 @@
-document.getElementById('submit-btn').addEventListener('click', async () => {
-    const command = document.getElementById('command-input').value;
-    const fileInput = document.getElementById('file-input');
-    const outputElement = document.getElementById('output');
-    const downloadBtn = document.getElementById('download-btn');
+document.getElementById('promptForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-    let formData = new FormData();
-    formData.append('command', command);
+    const prompt = document.getElementById('prompt').value;
+    const outputDiv = document.getElementById('output');
+    const downloadButton = document.getElementById('downloadButton');
 
-    if (fileInput.files.length > 0) {
-        formData.append('file', fileInput.files[0]);
-    }
+    outputDiv.textContent = 'Loading...';
 
-    try {
-        const response = await fetch('/api/process', {
-            method: 'POST',
-            body: formData
-        });
-        const data = await response.json();
-        outputElement.textContent = data.response;
+    const response = await fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer sk-proj-ql5ozijCBI68ftW14YLaT3BlbkFJqRCsYkXNn9REjm8UUnJh' // Replace with your actual API key
+        },
+        body: JSON.stringify({
+            prompt: prompt,
+            max_tokens: 150
+        })
+    });
 
-        const blob = new Blob([data.response], { type: 'text/plain' });
+    const data = await response.json();
+    const output = data.choices[0].text.trim();
+    outputDiv.textContent = output;
+
+    downloadButton.onclick = function () {
+        const blob = new Blob([output], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
-        downloadBtn.href = url;
-        downloadBtn.download = 'output.txt';
-        downloadBtn.style.display = 'inline-block';
-    } catch (error) {
-        outputElement.textContent = 'Error processing request';
-    }
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'output.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+    };
 });
