@@ -25,7 +25,7 @@ app.post('/api/process', upload.single('file'), async (req, res) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer YOUR_OPENAI_API_KEY`
+                'Authorization': `sk-proj-ql5ozijCBI68ftW14YLaT3BlbkFJqRCsYkXNn9REjm8UUnJh`
             },
             body: JSON.stringify({
                 prompt: command + '\n\n' + fileContent,
